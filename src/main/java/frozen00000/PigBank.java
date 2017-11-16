@@ -1,4 +1,4 @@
-package frozen0000;
+package frozen00000;
 
 import java.util.*;
 import java.util.stream.Collectors;
