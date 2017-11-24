@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -34,7 +35,7 @@ public class TestWithResources {
         return getClass().getSimpleName() + ".output";
     }
 
-    private void resourceToInputStream(String name) {
+    protected void resourceToInputStream(String name) {
         System.setIn(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(name)));
     }
 
@@ -46,7 +47,7 @@ public class TestWithResources {
         assertEquals(expected, outContent.toString().trim());
     }
 
-    private void assertResultAgainstResource(String expectedResource) {
+    protected void assertResultAgainstResource(String expectedResource) {
         String expectedResult = new BufferedReader(new InputStreamReader(
                 Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(expectedResource)))
         ).lines().collect(Collectors.joining("\n"));
@@ -55,6 +56,20 @@ public class TestWithResources {
 
     protected void assertResultAgainstResource() {
         assertResultAgainstResource(getDefaultOutputResourceName());
+    }
+
+    protected void assertAgainstResource(Consumer<String[]> runnable) {
+        assertAgainstResource(getDefaultInputResourceName(), runnable);
+    }
+
+    protected void assertAgainstResource(String resourceName, Consumer<String[]> runnable) {
+        assertAgainstResource(resourceName, runnable, getDefaultOutputResourceName());
+    }
+
+    protected void assertAgainstResource(String resourceName, Consumer<String[]> runnable, String outputResourceName) {
+        resourceToInputStream(resourceName);
+        runnable.accept(new String[] {});
+        assertResultAgainstResource(outputResourceName);
     }
 
 }
