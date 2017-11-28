@@ -15,6 +15,11 @@ class City {
         return !accessToLibrary;
     }
 
+    public void connect(City other) {
+        neighbors.add(other);
+        other.neighbors.add(this);
+    }
+
     public void enableAccessToLibrary() {
         accessToLibrary = true;
     }
@@ -64,10 +69,7 @@ public class RoadsAndLibraries {
     private static Map<Integer, City> readCities(int n, int m) {
         Map<Integer, City> cities = new HashMap<>(n);
         for (int i = 0; i < m; i++){
-            City c1 = nextCity(cities);
-            City c2 = nextCity(cities);
-            c1.getNeighbors().add(c2);
-            c2.getNeighbors().add(c1);
+            nextCity(cities).connect(nextCity(cities));
         }
         return cities;
     }
