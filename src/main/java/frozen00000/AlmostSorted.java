@@ -10,10 +10,8 @@ import java.util.function.BiFunction;
  */
 public class AlmostSorted {
 
-    private static BiFunction<Integer, Integer, Boolean> ASCENDING = (a, b) -> a < b;
-    private static BiFunction<Integer, Integer, Boolean> DESCENDING = (a, b) -> a > b;
-    private BiFunction<Integer, Integer, Boolean>[] comparingFunctions = new BiFunction[] {ASCENDING, DESCENDING};
-    private byte currentComparing = 0;
+    private static final BiFunction<Integer, Integer, Boolean> ASCENDING = (a, b) -> a < b;
+    private static final BiFunction<Integer, Integer, Boolean> DESCENDING = (a, b) -> a > b;
     private BiFunction<Integer, Integer, Boolean> comparingFunction = ASCENDING;
     private int[] data;
     private List<Integer> indices = new ArrayList<>();
@@ -28,8 +26,11 @@ public class AlmostSorted {
     }
 
     private void toggleComparingFunction() {
-        currentComparing = (byte) ((currentComparing + 1) % 2);
-        comparingFunction = comparingFunctions[currentComparing];
+        if (comparingFunction == ASCENDING) {
+            comparingFunction = DESCENDING;
+        } else {
+            comparingFunction = ASCENDING;
+        }
     }
 
     private boolean canInsert(int[] a, int l, int r) {
