@@ -50,7 +50,7 @@ public class TestWithResources {
     protected void assertResultAgainstResource(String expectedResource) {
         String expectedResult = new BufferedReader(new InputStreamReader(
                 Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(expectedResource)))
-        ).lines().collect(Collectors.joining("\n"));
+        ).lines().collect(Collectors.joining( System.lineSeparator()));
         assertResult(expectedResult);
     }
 
@@ -70,6 +70,6 @@ public class TestWithResources {
         resourceToInputStream(resourceName);
         runnable.accept(new String[] {});
         assertResultAgainstResource(outputResourceName);
-    }
+}
 
 }
