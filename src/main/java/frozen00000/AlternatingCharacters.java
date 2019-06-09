@@ -17,8 +17,19 @@ public class AlternatingCharacters {
 
     // Complete the alternatingCharacters function below.
     static int alternatingCharacters(String s) {
-
-        return 0;
+        if (s.isEmpty()) {
+            return 0;
+        }
+        int counter = 0;
+        char a = s.charAt(0);
+        for (int i = 1; i < s.length(); i++) {
+            char b = s.charAt(i);
+            if (a == b) {
+                counter++;
+            }
+            a = b;
+        }
+        return counter;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
