@@ -13,10 +13,10 @@ import java.util.regex.*;
 /**
  *
  */
-public class @ClassName {
+public class AlternatingCharacters {
 
-    // Complete the @MethodName function below.
-    static int @MethodName(String s) {
+    // Complete the alternatingCharacters function below.
+    static int alternatingCharacters(String s) {
 
         return 0;
     }
@@ -29,7 +29,7 @@ public class @ClassName {
 
         for (int qItr = 0; qItr < q; qItr++) {
             String s = scanner.nextLine();
-            int result = @MethodName(s);
+            int result = alternatingCharacters(s);
             System.out.println(result);
 
         }
