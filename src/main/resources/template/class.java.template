@@ -15,7 +15,6 @@ import java.util.regex.*;
  */
 public class @ClassName {
 
-    // Complete the @MethodName function below.
     static int @MethodName(String s) {
 
         return 0;
