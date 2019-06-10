@@ -11,7 +11,7 @@ public class FraudulentActivityNotificationsTest extends TestWithResources {
 
     @Test
     public void test2() {
-        assertAgainstResource("FraudulentActivityNotificationsTest2.input", FraudulentActivityNotifications::main, "FraudulentActivityNotificationsTest2.output");
+        assertAgainstResource("SherlockAndAnagramsTest2.input", FraudulentActivityNotifications::main, "SherlockAndAnagramsTest2.output");
     }
 
 }
