@@ -5,6 +5,7 @@ import lombok.ToString;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class BabyNames {
@@ -41,6 +42,15 @@ public class BabyNames {
 				{"Carleton", "Carlton"}
 		};
 
+		Set<CounterNode> set = getMergedFreq(freq, alts);
+
+		System.out.println(set.stream()
+				.filter(n -> n.next == null)
+				.map(n -> n.name + " - " + n.counter)
+				.collect(Collectors.toList()));
+	}
+
+	private static Set<CounterNode> getMergedFreq(Map<String, Integer> freq, String[][] alts) {
 		Map<String, CounterNode> map = new HashMap<>();
 		for (String[] n : alts) {
 			String n1 = n[0];
@@ -58,7 +68,7 @@ public class BabyNames {
 			} else {
 				counterNode2.next = Objects.requireNonNullElse(counterNode1.next, counterNode1);
 			}
-		};
+		}
 		freq.forEach((n, c) -> {
 			CounterNode counterNode = map.computeIfAbsent(n, CounterNode::new);
 			if (counterNode.next != null) {
@@ -66,12 +76,9 @@ public class BabyNames {
 			}
 			counterNode.counter += c;
 		});
-
-		System.out.println(map.values().stream()
+		return map.values().stream()
 				.filter(n -> n.next == null)
-				.distinct()
-				.map(n -> n.name + " - " + n.counter)
-				.collect(Collectors.toList()));
+				.collect(Collectors.toSet());
 	}
 
 }
